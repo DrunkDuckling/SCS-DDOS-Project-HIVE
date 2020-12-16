@@ -48,10 +48,10 @@ public class ScanIPFragment extends Fragment {
             public void run() {
                 while(whenInVeiw){
                     if (CONSTANT.ASYNCTASKRUNNING){
-                        CONSTANT.ASYNCTASKRUNNING = false;
                         scanIPViewModel.ScanIP(getContext());
                         Log.d(TAG, "run: ");
                     }
+                    CONSTANT.ASYNCTASKRUNNING = false;
                 }
             }
         }).start();
