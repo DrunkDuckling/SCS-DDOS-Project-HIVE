@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">SCS-DDOS-Project-HIVE</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_ddos">DDOS</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="DDOS">DDOS Attack</string>
+    <string name="etxt_hint_ip">Victim IP</string>
+    <string name="thread_count">Thread Count</string>
+</resources>

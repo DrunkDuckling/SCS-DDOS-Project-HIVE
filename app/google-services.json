@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "609608482922",
+    "firebase_url": "https://scs-ddos-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "scs-ddos",
+    "storage_bucket": "scs-ddos.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609608482922:android:d39c1da38a0758582c4a13",
+        "android_client_info": {
+          "package_name": "com.dd.scs_ddos_project_hive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609608482922-sl8psla3qgjjggt2bafikfbqh0um3frk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUaldMSCRwtauT2uCWoMgh9Jlz_Fbiwo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609608482922-sl8psla3qgjjggt2bafikfbqh0um3frk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:609608482922:android:c2e9cbb49cfeee772c4a13",
+        "android_client_info": {
+          "package_name": "com.example.scs_ddos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "609608482922-sl8psla3qgjjggt2bafikfbqh0um3frk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUaldMSCRwtauT2uCWoMgh9Jlz_Fbiwo0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "609608482922-sl8psla3qgjjggt2bafikfbqh0um3frk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
