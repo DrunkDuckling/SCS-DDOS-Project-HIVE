@@ -9,11 +9,15 @@ import android.os.AsyncTask;
 import android.text.format.Formatter;
 import android.util.Log;
 
+import com.dd.scs_ddos_project_hive.models.IPModel;
+
 import java.lang.ref.WeakReference;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 // https://stackoverflow.com/questions/39335835/how-to-get-ip-address-and-names-of-all-devices-in-local-network-on-android
-public class NetworkSniffTask extends AsyncTask<Void, Void, String> {
+public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
 
     private static final String TAG = "NetworkSniffTask";
     private WeakReference<Context> mContextRef;
@@ -24,15 +28,8 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        System.out.println(s);
-        Log.d(TAG, "onPostExecute: " + s);
-
-    }
-
-    @Override
-    protected String doInBackground(Void... voids) {
+    protected List<IPModel> doInBackground(Void... voids) {
+        List<IPModel> iplist = new ArrayList<>();
         Log.d(TAG, "Let's sniff the network");
         String hostName = "";
         try {
@@ -40,9 +37,9 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, String> {
 
             if (context != null) {
 
-                ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+                ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-                WifiManager wm = (WifiManager)context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                WifiManager wm = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
                 WifiInfo connectionInfo = wm.getConnectionInfo();
                 int ipAddress = connectionInfo.getIpAddress();
@@ -55,24 +52,31 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, String> {
                 String prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1);
                 Log.d(TAG, "prefix: " + prefix);
 
-                Log.d(TAG, "doInBackground: MUUUUUUUUUUUUUUUUUfasa");
                 for (int i = 0; i < 255; i++) {
                     String testIp = prefix + String.valueOf(i);
 
                     InetAddress address = InetAddress.getByName(testIp);
-                    boolean reachable = address.isReachable(1000);
+                    boolean reachable = address.isReachable(1);
                     hostName = address.getCanonicalHostName();
 
-                    if (reachable)
+                    if (reachable) {
+                        iplist.add(new IPModel(hostName));
                         Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
+
+                    }
                 }
 
             }
         } catch (Throwable t) {
             Log.e(TAG, "Well that's not good.", t);
         }
+        return iplist;
+    }
+
+    @Override
+    protected void onPostExecute(List<IPModel> s) {
+        super.onPostExecute(s);
         CONSTANT.ASYNCTASKRUNNING = true;
-        return " ";
     }
 
 // TODO Testing stage, maybe do it. Hwo knows

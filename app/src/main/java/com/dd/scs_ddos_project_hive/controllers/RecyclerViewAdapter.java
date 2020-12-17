@@ -37,8 +37,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
-
+        String ip_text = mIPlist.get(position).getIp();
+        holder.txt_ip_addr.setText(ip_text);
     }
 
     @Override
