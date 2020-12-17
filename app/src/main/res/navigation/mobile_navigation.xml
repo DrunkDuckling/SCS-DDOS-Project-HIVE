@@ -16,7 +16,7 @@
         android:id="@+id/nav_home"
         android:name="com.dd.scs_ddos_project_hive.ui.scanip.ScanIPFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_ip_snif" />
 
 
 

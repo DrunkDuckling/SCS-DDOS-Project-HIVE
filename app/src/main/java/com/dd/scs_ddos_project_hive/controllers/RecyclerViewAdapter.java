@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +29,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.mIPlist = mIPlist;
     }
 
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +41,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String ip_text = mIPlist.get(position).getIp();
         holder.txt_ip_addr.setText(ip_text);
+
+        holder.txt_ip_addr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick: " + position);
+
+            }
+        });
+
     }
 
     @Override

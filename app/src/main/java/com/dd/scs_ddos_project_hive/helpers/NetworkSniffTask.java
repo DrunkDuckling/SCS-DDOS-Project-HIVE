@@ -16,6 +16,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+// https://stackoverflow.com/questions/36277912/how-to-scan-ip-in-android
 // https://stackoverflow.com/questions/39335835/how-to-get-ip-address-and-names-of-all-devices-in-local-network-on-android
 public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
 
@@ -43,11 +44,15 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
 
                 WifiInfo connectionInfo = wm.getConnectionInfo();
                 int ipAddress = connectionInfo.getIpAddress();
+                String macAddress = connectionInfo.getMacAddress();
+                String BSSID = connectionInfo.getBSSID();
                 String ipString = Formatter.formatIpAddress(ipAddress);
 
 
                 Log.d(TAG, "activeNetwork: " + String.valueOf(activeNetwork));
                 Log.d(TAG, "ipString: " + String.valueOf(ipString));
+                Log.d(TAG, "macAddress: " + macAddress);
+                Log.d(TAG, "BSSID: " + BSSID);
 
                 String prefix = ipString.substring(0, ipString.lastIndexOf(".") + 1);
                 Log.d(TAG, "prefix: " + prefix);
@@ -59,8 +64,11 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
                     boolean reachable = address.isReachable(1);
                     hostName = address.getCanonicalHostName();
 
+                    String hostAddr = address.getHostAddress();
+
                     if (reachable) {
                         iplist.add(new IPModel(hostName));
+                        Log.i(TAG, "Testing values: Addr: " + address + "Host: " + hostName + " HostAdr: " + hostAddr);
                         Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
 
                     }
