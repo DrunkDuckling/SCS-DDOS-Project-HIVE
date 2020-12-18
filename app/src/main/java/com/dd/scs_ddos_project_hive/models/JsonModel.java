@@ -2,12 +2,12 @@ package com.dd.scs_ddos_project_hive.models;
 
 public class JsonModel {
     private String ip;
-    private double threads;
+    private int threads;
     private String msg;
     private int port;
 
 
-    public JsonModel(String ip, double threads, String msg, int port) {
+    public JsonModel(String ip, int threads, String msg, int port) {
         this.ip = ip;
         this.threads = threads;
         this.msg = msg;
@@ -55,7 +55,7 @@ public class JsonModel {
         return threads;
     }
 
-    public void setThreads(double threads) {
+    public void setThreads(int threads) {
         this.threads = threads;
     }
 }

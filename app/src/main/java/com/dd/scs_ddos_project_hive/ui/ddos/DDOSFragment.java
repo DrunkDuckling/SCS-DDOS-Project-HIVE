@@ -53,7 +53,7 @@ public class DDOSFragment extends Fragment {
                 String ip = et_ddos.getText().toString();
                 String msg = et_msg.getText().toString();
                 int pt = Integer.parseInt(et_port.getText().toString());
-                Double tc = Double.parseDouble(et_tc.getText().toString());
+                int tc = Integer.parseInt(et_tc.getText().toString());
 
                 attackController.writeJson(ip, tc, msg, pt);
                 //attackController.sendData(et_ddos.getText().toString());

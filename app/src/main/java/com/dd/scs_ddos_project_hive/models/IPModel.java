@@ -16,6 +16,11 @@ public class IPModel {
     public IPModel() {
     }
 
+    public IPModel(String ip, String mac) {
+        this.ip = ip;
+        this.mac = mac;
+    }
+
     public IPModel(String ip) {
         this.ip = ip;
     }

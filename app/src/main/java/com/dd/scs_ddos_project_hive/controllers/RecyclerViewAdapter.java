@@ -48,6 +48,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String ip_text = mIPlist.get(position).getIp();
+        String mac = mIPlist.get(position).getMac();
+        holder.txt_ip_mac.setText(mac);
         holder.txt_ip_addr.setText(ip_text);
 
         holder.txt_ip_addr.setOnClickListener(new View.OnClickListener() {

@@ -73,13 +73,13 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
                     String hostAddr = address.getHostAddress();
 
                     if (reachable) {
-                        iplist.add(new IPModel(hostName));
-                        Log.i(TAG, "Testing values: Addr: " + address + "Host: " + hostName + " HostAdr: " + hostAddr);
-                        Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
+                        String mac = getMacAddressFromIP(hostName);
 
+                        iplist.add(new IPModel(hostName, mac));
+                        Log.i(TAG, "Testing values: Addr: " + address + "Host: " + hostName + " HostAdr: " + hostAddr + " Mac: " + mac);
+                        Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
                     }
                 }
-
             }
         } catch (Throwable t) {
             Log.e(TAG, "Well that's not good.", t);
@@ -93,13 +93,9 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
         CONSTANT.ASYNCTASKRUNNING = true;
     }
 
-    public String getMacAddressFromIP(@NonNull String ipFinding, List<IPModel> antarDevicesInfos)
-    {
-
+    public String getMacAddressFromIP(@NonNull String ipFinding) {
         Log.i("IPScanning","Scan was started!");
         //List<model> antarDevicesInfos = new ArrayList<>();
-
-
         BufferedReader bufferedReader = null;
 
         try {
