@@ -7,10 +7,15 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_ip_scan">IP Scan</string>
     <string name="menu_ddos">DDOS</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_nmap">Nmap</string>
     <string name="DDOS">DDOS Attack</string>
     <string name="etxt_hint_ip">Victim IP</string>
     <string name="thread_count">Thread Count</string>
+
+    <string name="nmap_command">nmap</string>
+    <string name="scan_btn">Start Scan</string>
+    <string name="scan_command_hint">Enter your flags here...</string>
+    <string name="paste_btn">Paste Clipboard</string>
 </resources>

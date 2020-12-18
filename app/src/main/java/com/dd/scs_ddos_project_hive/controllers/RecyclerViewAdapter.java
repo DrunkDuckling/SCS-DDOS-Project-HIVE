@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dd.scs_ddos_project_hive.R;
+import com.dd.scs_ddos_project_hive.helpers.ClipBoard;
 import com.dd.scs_ddos_project_hive.models.IPModel;
 import com.dd.scs_ddos_project_hive.ui.ddos.DDOSFragment;
 
@@ -27,9 +28,8 @@ import static androidx.core.content.ContextCompat.getSystemService;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     private static final String TAG = "RecyclerViewAdapter";
-
+    ClipBoard clipBoard;
     Context context;
-
     List<IPModel> mIPlist;
 
     public RecyclerViewAdapter(List<IPModel> mIPlist) {
@@ -42,6 +42,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_ip_list, parent, false);
         context = parent.getContext();
+        clipBoard = new ClipBoard(context);
         return new ViewHolder(view);
     }
 
@@ -58,10 +59,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Log.i(TAG, "onClick: " + holder.txt_ip_addr.getText());
                 Toast.makeText(context, holder.txt_ip_addr.getText(), Toast.LENGTH_SHORT).show();
 
-                DDOSFragment fragment = new DDOSFragment();
+                // TODO Clipboard testing
+                clipBoard.copyStringContent(holder.txt_ip_addr.getText().toString());
+
+                /*DDOSFragment fragment = new DDOSFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("ip", holder.txt_ip_addr.getText().toString());
-                fragment.setArguments(bundle);
+                fragment.setArguments(bundle);*/
+
 
             }
         });
