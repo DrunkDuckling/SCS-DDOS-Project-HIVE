@@ -31,6 +31,10 @@ import java.io.IOException;
 
 import static android.content.Context.MODE_MULTI_PROCESS;
 
+// https://svn.nmap.org/
+// https://github.com/amoghbl1/nmap-android
+// https://nmap.org/
+// https://www.stationx.net/nmap-cheat-sheet/
 public class NmapFragment extends Fragment {
 
     private NmapViewModel nmapViewModel;
