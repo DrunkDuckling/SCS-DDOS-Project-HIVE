@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,7 +20,12 @@ import com.dd.scs_ddos_project_hive.helpers.CONSTANT;
 import com.dd.scs_ddos_project_hive.helpers.NetworkSniffTask;
 import com.dd.scs_ddos_project_hive.models.IPModel;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import static java.lang.Thread.sleep;
@@ -41,7 +47,6 @@ public class ScanIPFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new RecyclerViewAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
-
 
         // Loading UI
         ProgressDialog progress = new ProgressDialog(getContext());
@@ -74,6 +79,25 @@ public class ScanIPFragment extends Fragment {
         }).start();
 
         return root;
+    }
+
+
+
+    public static String getLocalIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                NetworkInterface intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+                        return inetAddress.getHostAddress();
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 
     @Override

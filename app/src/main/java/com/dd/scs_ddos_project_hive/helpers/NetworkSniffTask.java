@@ -61,7 +61,7 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
                     String testIp = prefix + String.valueOf(i);
 
                     InetAddress address = InetAddress.getByName(testIp);
-                    boolean reachable = address.isReachable(1);
+                    boolean reachable = address.isReachable(3);
                     hostName = address.getCanonicalHostName();
 
                     String hostAddr = address.getHostAddress();

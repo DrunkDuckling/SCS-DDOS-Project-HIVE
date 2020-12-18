@@ -24,7 +24,7 @@ public class DDOSFragment extends Fragment {
     private AttackController attackController;
     private TextView textView;
     private Button btn;
-    private EditText et_ddos, et_tc;
+    private EditText et_ddos, et_tc, et_port, et_msg;
 
     public View onCreateView(@NonNull LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
         ddosViewModel = new ViewModelProvider(this).get(DDOSViewModel.class);
@@ -37,15 +37,25 @@ public class DDOSFragment extends Fragment {
         textView = root.findViewById(R.id.text_gallery);
         et_ddos = root.findViewById(R.id.et_ddos);
         et_tc = root.findViewById(R.id.et_tc);
+        et_msg = root.findViewById(R.id.et_msg);
+        et_port = root.findViewById(R.id.et_port);
         btn = root.findViewById(R.id.button);
+
+        Bundle bundle = this.getArguments();
+        if(bundle != null){
+            String ip = bundle.getString("ip");
+            et_ddos.setText(ip);
+        }
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String ip = et_ddos.getText().toString();
+                String msg = et_msg.getText().toString();
+                int pt = Integer.parseInt(et_port.getText().toString());
                 Double tc = Double.parseDouble(et_tc.getText().toString());
-                attackController.writeJson(ip, tc);
 
+                attackController.writeJson(ip, tc, msg, pt);
                 //attackController.sendData(et_ddos.getText().toString());
                 ddosViewModel.setmText("new value: " + ip + "  :  " +  tc);
             }

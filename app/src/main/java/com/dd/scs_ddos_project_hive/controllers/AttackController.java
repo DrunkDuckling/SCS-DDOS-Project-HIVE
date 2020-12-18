@@ -27,8 +27,8 @@ public class AttackController extends ViewModel {
         myRef = database.getReference("ddos");
     }
 
-    public void writeJson(String ip, double tc){
-        JsonModel model = new JsonModel(ip, tc);
+    public void writeJson(String ip, double tc, String msg, int port){
+        JsonModel model = new JsonModel(ip, tc, msg, port);
         myRef.setValue(model);
     }
 
