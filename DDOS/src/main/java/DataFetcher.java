@@ -5,13 +5,12 @@ import com.google.firebase.database.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class DataFetcher{
+public class DataFetcher {
 
     private boolean isDataFetched = false;
     private boolean isFetching = false;
-    private DDOS att;
+    private TCPImpl tcp;
 
 
 
@@ -25,8 +24,8 @@ public class DataFetcher{
         FirebaseApp.initializeApp(firebaseOptions);
     }
 
-    public DDOS getDdosObj() {
-        return att;
+    public TCPImpl getDdosObj() {
+        return tcp;
     }
 
     public void getAttackPatternModel(){
@@ -36,11 +35,12 @@ public class DataFetcher{
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 System.out.println("This is the snapshot: " + snapshot);
-                att = new DDOS(snapshot.child("ip").getValue(String.class),
+                tcp = new TCPImpl(snapshot.child("ip").getValue(String.class),
                         snapshot.child("port").getValue(Integer.class),
                         snapshot.child("threads").getValue(Integer.class),
-                        snapshot.child("msg").getValue(String.class));
-                System.out.println(att.toString());
+                        snapshot.child("msg").getValue(String.class)) {
+                };
+                System.out.println(tcp.toString());
                 setDataFetched(true);
             }
 
