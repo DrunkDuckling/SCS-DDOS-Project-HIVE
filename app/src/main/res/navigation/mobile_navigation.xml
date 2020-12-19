@@ -15,14 +15,14 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.dd.scs_ddos_project_hive.ui.scanip.ScanIPFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_ip_scan"
         tools:layout="@layout/fragment_ip_snif" />
 
 
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.dd.scs_ddos_project_hive.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_nmap"
+        android:name="com.dd.scs_ddos_project_hive.ui.slideshow.NmapFragment"
+        android:label="@string/menu_nmap"
+        tools:layout="@layout/fragment_nmap" />
 </navigation>
