@@ -15,7 +15,8 @@
     <string name="thread_count">Thread Count</string>
 
     <string name="nmap_command">nmap</string>
-    <string name="scan_btn">Start Scan</string>
+    <string name="scan_btn">Scan</string>
     <string name="scan_command_hint">Enter your flags here...</string>
-    <string name="paste_btn">Paste Clipboard</string>
+    <string name="paste_btn">Paste CB</string>
+    <string name="get_pip_btn">Get P-IP</string>
 </resources>

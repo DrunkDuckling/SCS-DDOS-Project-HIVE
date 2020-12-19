@@ -81,7 +81,7 @@ public class NetworkSniffTask extends AsyncTask<Void, Void, List<IPModel>> {
                         //String mac = getMacAddressFromIP(hostName);
 
                         iplist.add(new IPModel(hostName));
-                        Log.i(TAG, "Testing values: Addr: " + address + "Host: " + hostName + " HostAdr: " + hostAddr + " Mac: " );
+                        Log.i(TAG, "Testing values: Addr: " + address + "Host: " + hostName + " HostAdr: " + hostAddr + " Mac: ");
                         Log.i(TAG, "Host: " + String.valueOf(hostName) + "(" + String.valueOf(testIp) + ") is reachable!");
                     }
                 }

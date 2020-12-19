@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,8 @@ import com.dd.scs_ddos_project_hive.nmap.NmapBinaryInstaller;
 import com.dd.scs_ddos_project_hive.nmap.Utils;
 
 import org.jetbrains.annotations.NotNull;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +75,8 @@ public class NmapFragment extends Fragment {
 
         Button scan = (Button)root.findViewById(R.id.scan_BT);
         Button paste_btn = root.findViewById(R.id.paste_BT);
+        Button get_pip = root.findViewById(R.id.public_ip_BT);
+
         final EditText flags = (EditText)root.findViewById(R.id.flags_ET);
         scanResult = (TextView)root.findViewById(R.id.scan_output_TV);
 
@@ -89,9 +94,20 @@ public class NmapFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String p = clipBoard.pasteStringData();
-                flags.append(p);
+                if (p == null){
+                    Toast.makeText(mContext, "ClipBoard is empty", Toast.LENGTH_SHORT).show();
+                }else {
+                    flags.append(p);
+                }
             }
         });
+
+        get_pip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            }
+        });
+
         return root;
     }
 
@@ -127,6 +143,24 @@ public class NmapFragment extends Fragment {
             NmapFragment.scanResult.setText(returnOutput);
             if(this.progressDialog.isShowing())
                 this.progressDialog.dismiss();
+        }
+    }
+
+    public class AsyncGetPIP extends AsyncTask<Void, Void, String> {
+        Document doc = null;
+        @Override
+        protected String doInBackground(Void... voids) {
+            try {
+                doc = Jsoup.connect("http://www.checkip.org").get();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            String pip = doc.getElementById("yourip").select("h1").first().select("span").text();
         }
     }
 
