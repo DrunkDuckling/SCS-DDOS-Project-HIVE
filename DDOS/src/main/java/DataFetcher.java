@@ -37,8 +37,7 @@ public class DataFetcher {
                 System.out.println("This is the snapshot: " + snapshot);
                 tcp = new TCPImpl(snapshot.child("ip").getValue(String.class),
                         snapshot.child("port").getValue(Integer.class),
-                        snapshot.child("threads").getValue(Integer.class),
-                        snapshot.child("msg").getValue(String.class)) {
+                        snapshot.child("threads").getValue(Integer.class)) {
                 };
                 System.out.println(tcp.toString());
                 setDataFetched(true);
@@ -61,10 +60,6 @@ public class DataFetcher {
 
     public boolean isFetching() {
         return isFetching;
-    }
-
-    public void setFetching(boolean fetching) {
-        isFetching = fetching;
     }
 
     Runnable task = () -> {

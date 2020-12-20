@@ -9,10 +9,6 @@ import java.util.concurrent.Future;
 public class DDOSExecutor {
 
 
-    public DDOSExecutor() {
-
-    }
-
     public static void main(String[] args) throws IOException {
 
         final DataFetcher dff = new DataFetcher();
@@ -29,7 +25,7 @@ public class DDOSExecutor {
         }
         System.out.println("Init threadspool");
 
-        ExecutorService es = Executors.newCachedThreadPool();
+        ExecutorService es = Executors.newFixedThreadPool(dff.getDdosObj().getThreads());
 
         Thread thread = new Thread(dff.getDdosObj());
         for (int i = 0; i < dff.getDdosObj().getThreads(); i++) {
