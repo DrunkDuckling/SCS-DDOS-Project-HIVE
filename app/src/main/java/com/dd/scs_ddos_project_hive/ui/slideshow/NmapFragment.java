@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,22 +16,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.dd.scs_ddos_project_hive.R;
 import com.dd.scs_ddos_project_hive.helpers.ClipBoard;
 import com.dd.scs_ddos_project_hive.nmap.NmapBinaryInstaller;
 import com.dd.scs_ddos_project_hive.nmap.Utils;
-
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static android.content.Context.MODE_MULTI_PROCESS;
 
@@ -50,6 +50,8 @@ public class NmapFragment extends Fragment {
     public static File appBinHome;
     String NMAP_COMMAND = "./nmap ";
     public static TextView scanResult = null;
+    private String ip;
+
 
     private Context mContext;
 
@@ -82,29 +84,32 @@ public class NmapFragment extends Fragment {
 
         scanResult.setMovementMethod(new ScrollingMovementMethod());
 
-        scan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String f = flags.getText().toString();
-                new AsyncCommandExecutor().execute( NMAP_COMMAND + f);
+        scan.setOnClickListener(v -> {
+            String f = flags.getText().toString();
+            new AsyncCommandExecutor().execute( NMAP_COMMAND + f);
+        });
+
+        paste_btn.setOnClickListener(view -> {
+            String p = clipBoard.pasteStringData();
+            if (p == null){
+                Toast.makeText(mContext, "ClipBoard is empty", Toast.LENGTH_SHORT).show();
+            }else {
+                flags.append(p);
             }
         });
 
-        paste_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String p = clipBoard.pasteStringData();
-                if (p == null){
-                    Toast.makeText(mContext, "ClipBoard is empty", Toast.LENGTH_SHORT).show();
-                }else {
-                    flags.append(p);
+        get_pip.setOnClickListener(view -> {
+            ExecutorService exe = Executors.newSingleThreadExecutor();
+            exe.execute(getIp);
+            if(ip != null){
+                clipBoard.copyStringContent(getIp());
+                paste_btn.setEnabled(true);
+            } else {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-            }
-        });
-
-        get_pip.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
             }
         });
 
@@ -146,29 +151,38 @@ public class NmapFragment extends Fragment {
         }
     }
 
-    public class AsyncGetPIP extends AsyncTask<Void, Void, String> {
-        Document doc = null;
-        @Override
-        protected String doInBackground(Void... voids) {
-            try {
-                doc = Jsoup.connect("http://www.checkip.org").get();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            String pip = doc.getElementById("yourip").select("h1").first().select("span").text();
-        }
+    public String getIp() {
+        return ip;
     }
+
+    public void setIp(String ip) {
+        this.ip = ip;
+    }
+
+    Runnable getIp = () -> {
+        boolean fetching = false;
+        try {
+            while(!fetching){
+                Document doc = Jsoup.connect("https://www.checkip.org").get();
+                this.setIp(doc.getElementById("yourip").select("h1").first().select("span").text());
+                Looper.prepare();
+                Toast.makeText(getContext(), "IP have been fetched!", Toast.LENGTH_LONG).show();
+                if(ip != null){
+                    fetching = true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    };
 
     @Override
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         mContext = context;
     }
+
+
 
     @Override
     public void onDetach() {
