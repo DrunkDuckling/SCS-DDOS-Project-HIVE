@@ -103,6 +103,7 @@ public class NmapFragment extends Fragment {
             exe.execute(getIp);
             if(ip != null){
                 clipBoard.copyStringContent(getIp());
+                paste_btn.setEnabled(true);
             } else {
                 try {
                     Thread.sleep(100);
